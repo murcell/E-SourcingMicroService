@@ -9,8 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers(opt =>
 {
-    // tüm kontrolleri authorize ettik
-    //opt.Filters.Add(new AuthorizeFilter());
+
 });
 
 builder.Services.Configure<ProductDatabaseSettings>(builder.Configuration.GetSection("ProductDatabaseSettings"));
