@@ -1,25 +1,11 @@
 version: "3.8"
 services:
-  product-mongodb:
+  sourcingdb:
     image: mongo
-    container_name: product-mongodb
-    restart: always
-    ports:
-      - "27017:27017"
-    volumes:
-      - product-mongodb_volume:/data/db
   product.api:
     image: product_api_image
     build:
-      context: .
-      dockerfile: ESourcing.Products/Dockerfile
-    container_name: product.api
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ProductDatabaseSettings:ConnectionStrings=mongodb://product-mongodb:27017
-    ports:
-      - "5051:8080"
-    depends_on:
-      - product-mongodb
+     context: .
+     dockerfile: ESourcing.Products/Dockerfile
 volumes:
-  product-mongodb_volume:
+  sourcingdb_volume:

@@ -1,9 +1,19 @@
+using ESourcing.Sourcing.Data;
+using ESourcing.Sourcing.Data.Interfaces;
+using ESourcing.Sourcing.Settings;
+using Microsoft.Extensions.Options;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers(opt =>
 {
 
 });
+
+builder.Services.Configure<SourcingDatabaseSettings>(builder.Configuration.GetSection(nameof(SourcingDatabaseSettings)));
+builder.Services.AddSingleton<ISourcingDatabaseSettings>(sp => sp.GetRequiredService<IOptions<SourcingDatabaseSettings>>().Value);
+
+builder.Services.AddTransient<ISourcingContext, SourcingContext>();
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

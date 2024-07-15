@@ -1,0 +1,23 @@
+version: "3.8"
+services:
+  sourcingdb:
+    container_name: sourcingdb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - sourcingdb_volume:/data/db
+  product.api:
+    build:
+      context: .
+      dockerfile: ESourcing.Products/Dockerfile
+    container_name: product.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ProductDatabaseSettings:ConnectionStrings=mongodb://sourcingdb:27017
+    ports:
+      - "5051:8080"
+    depends_on:
+      - sourcingdb
+volumes:
+  sourcingdb_volume:
