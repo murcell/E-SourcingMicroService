@@ -16,7 +16,7 @@ namespace ESourcing.Sourcing.Data
 
         private static IEnumerable<Auction> GetConfigureAuctions()
         {
-            return new List<Auction>() 
+            return new List<Auction>()
             {
 
                 new Auction()
@@ -70,7 +70,7 @@ namespace ESourcing.Sourcing.Data
                     Quantity = 5,
                     Status = (int)Status.Active
                 }
-            }
+            };
         }
     }
 }

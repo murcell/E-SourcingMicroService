@@ -7,5 +7,10 @@ services:
     build:
      context: .
      dockerfile: ESourcing.Products/Dockerfile
+  sourcing.api:
+    image: sourcing_api_image
+    build:
+     context: .
+     dockerfile: ESourcing.Sourcing/Dockerfile
 volumes:
   sourcingdb_volume:
