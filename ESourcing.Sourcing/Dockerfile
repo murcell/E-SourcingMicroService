@@ -2,6 +2,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 as build
 WORKDIR /app
 EXPOSE 80
 COPY ESourcing.Sourcing/*.csproj ESourcing.Sourcing/
+COPY EventBusRabbitMQ/*.csproj EventBusRabbitMQ/
 RUN dotnet restore ESourcing.Sourcing/*.csproj
 COPY . .
 RUN dotnet publish ESourcing.Sourcing/*.csproj -c Release -o out
