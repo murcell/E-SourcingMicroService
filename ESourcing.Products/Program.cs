@@ -1,3 +1,4 @@
+using ESourcing.Products.Data;
 using ESourcing.Products.Data.Interfaces;
 using ESourcing.Products.Repositories;
 using ESourcing.Products.Repositories.Interfaces;
@@ -9,8 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers(opt =>
 {
-    // tüm kontrolleri authorize ettik
-    //opt.Filters.Add(new AuthorizeFilter());
+
 });
 
 builder.Services.Configure<ProductDatabaseSettings>(builder.Configuration.GetSection("ProductDatabaseSettings"));

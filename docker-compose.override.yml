@@ -1,0 +1,40 @@
+version: "3.8"
+services:
+  sourcingdb:
+    container_name: sourcingdb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - sourcingdb_volume:/data/db
+  rabbitmq:
+    container_name: rabbitmq
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+  product.api:
+    container_name: product.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ProductDatabaseSettings:ConnectionStrings=mongodb://sourcingdb:27017
+    ports:
+      - "5051:8080"
+    depends_on:
+      - sourcingdb
+  sourcing.api:
+    container_name: sourcing.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - SourcingDatabaseSettings:ConnectionStrings=mongodb://sourcingdb:27017
+      - EventBus:HostName=rabbitmq
+      - "EventBus:UserName=guest"
+      - "EventBus:Password=guest"
+      - "EventBus:RetryCount=5"
+    ports:
+      - "5055:8080"
+    depends_on:
+      - sourcingdb
+      - rabbitmq
+volumes:
+  sourcingdb_volume:
