@@ -7,6 +7,16 @@ services:
       - "27017:27017"
     volumes:
       - sourcingdb_volume:/data/db
+  orderdb:
+    container_name: orderdb
+    restart: always
+    ports:
+      - "1444:1433"
+    volumes:
+      - orderdb_volume:/var/opt/mssql
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Pass1234.?
   rabbitmq:
     container_name: rabbitmq
     restart: always
@@ -38,3 +48,4 @@ services:
       - rabbitmq
 volumes:
   sourcingdb_volume:
+  orderdb_volume:
