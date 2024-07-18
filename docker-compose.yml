@@ -2,7 +2,7 @@ version: "3.8"
 services:
   sourcingdb:
     image: mongo
-  orderdb:
+  orderingdb:
     image: mcr.microsoft.com/mssql/server:2019-latest
   rabbitmq:
     image: rabbitmq:3.13.4-management
@@ -18,4 +18,4 @@ services:
      dockerfile: ESourcing.Sourcing/Dockerfile
 volumes:
   sourcingdb_volume:
-  orderdb_volume:
+  orderingdb_volume:

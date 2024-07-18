@@ -7,13 +7,13 @@ services:
       - "27017:27017"
     volumes:
       - sourcingdb_volume:/data/db
-  orderdb:
-    container_name: orderdb
+  orderingdb:
+    container_name: orderingdb
     restart: always
     ports:
-      - "1444:1433"
+      - "1433:1433"
     volumes:
-      - orderdb_volume:/var/opt/mssql
+      - orderingdb_volume:/var/opt/mssql
     environment:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=Pass1234.?

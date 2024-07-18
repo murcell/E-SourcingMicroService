@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ordering.Infastructure.Data
+namespace Ordering.Infastructure
 {
     public class OrderContextSeed
     {

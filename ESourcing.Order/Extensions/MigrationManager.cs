@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Ordering.Infastructure.Data;
+using Ordering.Infastructure;
 
 namespace ESourcing.Order.Extensions
 {
@@ -18,6 +18,7 @@ namespace ESourcing.Order.Extensions
                         orderContext.Database.Migrate();
                     }
 
+                    
                     OrderContextSeed.SeedAsync(orderContext).Wait();
                 }
                 catch (Exception)
