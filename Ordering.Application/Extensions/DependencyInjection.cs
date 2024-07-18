@@ -1,6 +1,9 @@
-﻿using FluentValidation;
+﻿using AutoMapper;
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
+using Ordering.Application.Handlers;
+using Ordering.Application.Mapper;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,9 +25,17 @@ namespace Ordering.Application.DependencyInjections
 
             services.AddMediatR(cfg =>
             {
-               // cfg.RegisterServicesFromAssembly(typeof(Ordering.Application.Handlers.CreateOrderCommandHandler).Assembly);
+                cfg.RegisterServicesFromAssembly(typeof(OrderCreateCommandHandler).Assembly);
                
             });
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.ShouldMapProperty = p => p.GetMethod.IsPublic || p.GetMethod.IsAssembly;
+                cfg.AddProfile<OrderProfile>();
+            });
+
+            var mapper = config.CreateMapper();
         }
     }
 }

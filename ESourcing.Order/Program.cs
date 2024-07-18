@@ -19,7 +19,7 @@ builder.Services.AddDbContext<OrderDbContext>(opt =>
     });
 });
 
-//builder.Services.AddApplication();
+builder.Services.AddApplication();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
