@@ -18,3 +18,4 @@ services:
      dockerfile: ESourcing.Sourcing/Dockerfile
 volumes:
   sourcingdb_volume:
+  orderdb_volume:

@@ -46,6 +46,3 @@ services:
     depends_on:
       - sourcingdb
       - rabbitmq
-volumes:
-  sourcingdb_volume:
-  orderdb_volume:

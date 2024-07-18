@@ -1,13 +1,26 @@
+using ESourcing.Order.Extensions;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Hosting;
+using Ordering.Infastructure.Data;
+using Ordering.Infastructure.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Add services to the container.
+builder.Services.AddInfastructure(builder.Configuration);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
 var app = builder.Build();
+
+app.MigrateAndSeedDatabase();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
