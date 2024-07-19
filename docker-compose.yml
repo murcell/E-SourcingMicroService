@@ -16,6 +16,11 @@ services:
     build:
      context: .
      dockerfile: ESourcing.Sourcing/Dockerfile
+  order.api:
+    image: order_api_image
+    build:
+      context: .
+      dockerfile: ESourcing.Order/Dockerfile
 volumes:
   sourcingdb_volume:
   orderingdb_volume:
