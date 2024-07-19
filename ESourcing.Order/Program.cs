@@ -8,6 +8,7 @@ using Ordering.Infastructure;
 using Ordering.Infastructure.Extensions;
 using RabbitMQ.Client;
 using ESourcing.Order.Consumers;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,8 @@ builder.Services.AddControllers(opt =>
 
 builder.Services.AddInfastructure(builder.Configuration);
 builder.Services.AddApplication();
+
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 #region EventBus
 
