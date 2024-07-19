@@ -13,10 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="PipelineBehaviors\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Ordering.Domain\Ordering.Domain.csproj" />
   </ItemGroup>
 
