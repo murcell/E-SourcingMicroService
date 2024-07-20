@@ -1,0 +1,6 @@
+@Esourcing.Gateway_HostAddress = http://localhost:5060
+
+GET {{Esourcing.Gateway_HostAddress}}/product/
+Accept: application/json
+
+###
