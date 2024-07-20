@@ -45,6 +45,8 @@ namespace ESourcing.Order.Consumers
             var message = Encoding.UTF8.GetString(e.Body.Span);
             var @event = JsonSerializer.Deserialize<OrderCreateEvent>(message);
 
+            //var @event = JsonConvert.DeserializeObject<OrderCreateEvent>(message);
+
             if (e.RoutingKey == EventBusConstants.OrderCreateQueue)
             {
                 var command = _mapper.Map<OrderCreateCommand>(@event);

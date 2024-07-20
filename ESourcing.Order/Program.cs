@@ -1,14 +1,14 @@
+using AutoMapper;
+using ESourcing.Order.Consumers;
 using ESourcing.Order.Extensions;
-using EventBusRabbitMQ.Producer;
+using ESourcing.Order.Mapping;
 using EventBusRabbitMQ;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Ordering.Application.DependencyInjections;
+using Ordering.Application;
 using Ordering.Infastructure;
-using Ordering.Infastructure.Extensions;
 using RabbitMQ.Client;
-using ESourcing.Order.Consumers;
 using System.Reflection;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,12 +17,18 @@ builder.Services.AddControllers(opt =>
 
 });
 
-// Add services to the container. builder.Services.AddInfastructure(builder.Configuration);
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly()); 
+
+var config = new MapperConfiguration(cfg =>
+{
+    cfg.AddProfile<OrderMapping>();
+});
+
+var mapper = config.CreateMapper();
 
 builder.Services.AddInfastructure(builder.Configuration);
 builder.Services.AddApplication();
 
-builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 #region EventBus
 

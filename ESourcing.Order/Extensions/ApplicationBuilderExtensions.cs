@@ -13,7 +13,7 @@ namespace ESourcing.Order.Extensions
 
             var lifeTimeScope = app.ApplicationServices.GetService<IHostApplicationLifetime>();
             lifeTimeScope.ApplicationStarted.Register(OnStarted);
-            lifeTimeScope.ApplicationStarted.Register(OnStopping);
+            lifeTimeScope.ApplicationStopping.Register(OnStopping);
 
             return app;
         }
