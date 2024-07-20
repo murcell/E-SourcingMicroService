@@ -61,3 +61,13 @@ services:
     depends_on:
       - orderingdb
       - rabbitmq
+  gateway.api:
+    container_name: gateway.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5060:8080"
+    depends_on:
+      - order.api
+      - product.api
+      - sourcing.api

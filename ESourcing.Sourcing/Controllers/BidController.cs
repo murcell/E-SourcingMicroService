@@ -26,9 +26,9 @@ namespace ESourcing.Sourcing.Controllers
             return Ok();
         }
 
-        [HttpGet("GetBidByAuctionId")]
+        [HttpGet("GetBidsByAuctionId")]
         [ProducesResponseType(typeof(IEnumerable<Bid>), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<IEnumerable<Bid>>> GetBidByAuctionId(string id)
+        public async Task<ActionResult<IEnumerable<Bid>>> GetBidsByAuctionId(string id)
         {
             IEnumerable<Bid> bids = await _bidRepository.GetBidsByAuctionId(id);
 
