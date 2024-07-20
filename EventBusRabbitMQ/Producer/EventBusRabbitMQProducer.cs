@@ -1,4 +1,5 @@
-﻿using EventBusRabbitMQ.Events.Interfaces;
+﻿using EventBusRabbitMQ.Events;
+using EventBusRabbitMQ.Events.Interfaces;
 using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Retry;
@@ -44,7 +45,7 @@ namespace EventBusRabbitMQ.Producer
             using (var channel = _rabbitMQPersistentConnection.CreateModel())
             {
                 channel.QueueDeclare(queueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
-                var message = JsonSerializer.Serialize(@event);
+                var message = JsonSerializer.Serialize((object)@event);
                 var body = Encoding.UTF8.GetBytes(message);
 
                 policy.Execute(() =>

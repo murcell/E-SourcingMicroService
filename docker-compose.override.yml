@@ -7,6 +7,16 @@ services:
       - "27017:27017"
     volumes:
       - sourcingdb_volume:/data/db
+  orderingdb:
+    container_name: orderingdb
+    restart: always
+    ports:
+      - "1433:1433"
+    volumes:
+      - orderingdb_volume:/var/opt/mssql
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Pass1234.?
   rabbitmq:
     container_name: rabbitmq
     restart: always
@@ -36,5 +46,18 @@ services:
     depends_on:
       - sourcingdb
       - rabbitmq
-volumes:
-  sourcingdb_volume:
+  order.api:
+    container_name: order.api
+    restart: on-failure
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - EventBus:HostName=rabbitmq
+      - "EventBus:UserName=guest"
+      - "EventBus:Password=guest"
+      - "EventBus:RetryCount=5"
+      - "ConnectionStrings:DefaultConnection=Server=orderingdb,1433;Database=orderingdb; User=sa; Password=Pass1234.?;TrustServerCertificate=True"
+    ports:
+      - "5052:8080"
+    depends_on:
+      - orderingdb
+      - rabbitmq
