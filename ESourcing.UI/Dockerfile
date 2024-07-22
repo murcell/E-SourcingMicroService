@@ -1,7 +1,7 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 as build
 WORKDIR /app
 EXPOSE 80
-COPY EESourcing.UI/*.csproj ESourcing.UI/
+COPY ESourcing.UI/*.csproj ESourcing.UI/
 COPY ESourcing.Core/*.csproj ESourcing.Core/
 COPY Esourcing.Infastructure/*.csproj Esourcing.Infastructure/
 RUN dotnet restore ESourcing.UI/*.csproj
