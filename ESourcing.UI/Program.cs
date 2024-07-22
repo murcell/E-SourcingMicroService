@@ -1,5 +1,11 @@
 using Esourcing.Infastructure.Data;
+using Esourcing.Infastructure.Repository;
+using Esourcing.Infastructure.Repository.Base;
 using ESourcing.Core.Entities;
+using ESourcing.Core.Repositories;
+using ESourcing.Core.Repositories.Base;
+using ESourcing.UI.Clients;
+using ESourcing.UI.Extensions;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -38,7 +44,24 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.Cookie.Name= "ESourcing_Cookie";
 });
 
+builder.Services.AddSession(opt =>
+{
+    opt.IdleTimeout = TimeSpan.FromMinutes(20);
+   
+});
+
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
+
+builder.Services.AddHttpClient();
+
+builder.Services.AddHttpClient<ProductClient>();
+builder.Services.AddHttpClient<AuctionClient>();
+builder.Services.AddHttpClient<BidClient>();
+
 var app = builder.Build();
+
+SeedManager.MigrateAndSeedDatabase(app);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -51,7 +74,7 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseSession();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

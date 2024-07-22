@@ -46,7 +46,7 @@ namespace ESourcing.UI.Controllers
 
                     if (result.Succeeded)
                     {
-                        //HttpContext.Session.SetString("IsAdmin", user.IsAdmin.ToString());
+                        HttpContext.Session.SetString("IsAdmin", user.IsAdmin.ToString());
                         //return RedirectToAction("Index");
                         return LocalRedirect(returnUrl);
                     }
