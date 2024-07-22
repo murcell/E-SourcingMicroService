@@ -26,6 +26,11 @@ services:
     build:
       context: .
       dockerfile: Esourcing.Gateway/Dockerfile
+  esourcing.web:
+    image: esourcing-web
+    build:
+      context: .
+      dockerfile: ESourcing.UI/Dockerfile
 volumes:
   sourcingdb_volume:
   orderingdb_volume:

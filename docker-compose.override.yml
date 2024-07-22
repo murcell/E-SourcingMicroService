@@ -61,6 +61,21 @@ services:
     depends_on:
       - orderingdb
       - rabbitmq
+  esourcing.web:
+    image: esourcing-web
+    build:
+      context: .
+      dockerfile: ESourcing.UI/Dockerfile
+    container_name: esourcing.web
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "6060:8080"
+    depends_on:
+      - gateway.api
+      - sourcing.api
+      - product.api
+      - order.api
   gateway.api:
     container_name: gateway.api
     environment:
