@@ -1,5 +1,6 @@
 using ESourcing.Sourcing.Data;
 using ESourcing.Sourcing.Data.Interfaces;
+using ESourcing.Sourcing.Hubs;
 using ESourcing.Sourcing.Repositories;
 using ESourcing.Sourcing.Repositories.Interfaces;
 using ESourcing.Sourcing.Settings;
@@ -10,10 +11,10 @@ using RabbitMQ.Client;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
-
+string ApiCorsPolicy = "_apiCorsPolicy";
 builder.Services.AddControllers(opt =>
 {
-
+    
 });
 
 builder.Services.Configure<SourcingDatabaseSettings>(builder.Configuration.GetSection(nameof(SourcingDatabaseSettings)));
@@ -23,6 +24,19 @@ builder.Services.AddTransient<ISourcingContext, SourcingContext>();
 builder.Services.AddTransient<IAuctionRepository, AuctionRepository>();
 
 builder.Services.AddTransient<IBidRepository, BidRepository>();
+
+
+
+builder.Services.AddCors(o => o.AddPolicy(ApiCorsPolicy, bd =>
+{
+    bd.AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader()
+    .AllowCredentials()
+    .WithOrigins("http://localhost:6060");
+
+
+}));
 
 #region EventBus
 
@@ -77,6 +91,9 @@ builder.Services.AddSwaggerGen(s =>
     // s.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo() { Title = "ESourcing.Sourcing", Version = "v1" });
 });
 
+
+builder.Services.AddSignalR();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -86,7 +103,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
     app.UseDeveloperExceptionPage();
 }
-
+app.UseCors(ApiCorsPolicy);
+app.MapHub<AuctionHub>("/auctionhub");
 app.MapControllers();
 app.Run();
 

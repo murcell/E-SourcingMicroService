@@ -62,13 +62,10 @@ services:
       - orderingdb
       - rabbitmq
   esourcing.web:
-    image: esourcing-web
-    build:
-      context: .
-      dockerfile: ESourcing.UI/Dockerfile
     container_name: esourcing.web
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - "ConnectionStrings:DefaultConnection=Server=orderingdb,1433;Database=orderingdb; User=sa; Password=Pass1234.?;TrustServerCertificate=True"
     ports:
       - "6060:8080"
     depends_on:
@@ -81,7 +78,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     ports:
-      - "5060:8080"
+      - "7000:8080"
     depends_on:
       - order.api
       - product.api
